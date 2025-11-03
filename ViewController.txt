@@ -1,0 +1,44 @@
+import UIKit
+
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+
+    let pickerData = Array(0...100) // Limit from 0 to 100
+    var pickerView: UIPickerView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        pickerView = UIPickerView()
+        pickerView.dataSource = self
+        pickerView.delegate = self
+
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(pickerView)
+
+        // Center the picker on screen
+        NSLayoutConstraint.activate([
+            pickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+
+    // MARK: - UIPickerView Data Source
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+
+    // MARK: - UIPickerView Delegate
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(pickerData[row])
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("Selected number: \(pickerData[row])")
+    }
+}
